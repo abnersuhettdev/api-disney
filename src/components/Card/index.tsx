@@ -6,25 +6,45 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
 interface CardProps {
-	character: Character;
+  character: Character;
 }
 
 export const MediaCard: React.FC<CardProps> = ({ character }) => {
-	return (
-		<Card sx={{ width: 270, borderRadius: "12px", bgcolor: "#f1f1f1" }}>
-			<CardMedia
-				sx={{ height: "300px" }}
-				image={character.imageUrl}
-				title={character.name}
-			/>
-			<CardContent>
-				<Typography gutterBottom variant="h6" component="div">
-					{character.name}
-				</Typography>
-			</CardContent>
-			<CardActions>
-				<Button size="small">Visualizar</Button>
-			</CardActions>
-		</Card>
-	);
+  return (
+    <Card
+      sx={{
+        width: 270,
+        borderRadius: "12px",
+        bgcolor: "#f1f1f1",
+        boxShadow: "-7px 4px 45px -8px #ffffff83;",
+      }}
+    >
+      <CardMedia
+        sx={{ height: "300px" }}
+        image={character.imageUrl}
+        title={character.name}
+      />
+      <CardContent>
+        <Typography
+          gutterBottom
+          variant="h6"
+          component="div"
+          textAlign={"center"}
+        >
+          {character.name}
+        </Typography>
+      </CardContent>
+      <CardActions sx={{ display: "flex", justifyContent: "center" }}>
+        <Button
+          sx={{
+            alignSelf: "center",
+          }}
+					variant="contained"
+          size="small"
+        >
+          Visualizar
+        </Button>
+      </CardActions>
+    </Card>
+  );
 };
