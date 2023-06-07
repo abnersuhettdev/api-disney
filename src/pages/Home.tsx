@@ -5,15 +5,16 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import LogoDisney from "../../public/assets/LogoDisney.png";
 import { MediaCard } from "../components/Card";
+import { ICharacter } from "../types/character";
 
 const Home = () => {
-  const [characters, setCharacters] = useState<Character[]>([]);
+  const [characters, setCharacters] = useState<ICharacter[]>([]);
   const [nextPage, setNextPage] = useState<string>("");
   const [prevPage, setPrevPage] = useState<string>("");
   const [countPage, setCountPage] = useState<string>("");
   const [totalPage, setTotalPage] = useState<number>(0);
   const [page, setPage] = useState<string>(
-    "http://api.disneyapi.dev/character?page=1&pageSize=12"
+    "http://api.disneyapi.dev/character?page=1&pageSize=16"
   );
 
   useEffect(() => {
@@ -28,11 +29,11 @@ const Home = () => {
         setCountPage(
           page
             .replace("http://api.disneyapi.dev/character?page=", "")
-            .replace("&pageSize=12", "")
+            .replace("&pageSize=16", "")
         );
 
         return response.data;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (erro: any) {
         return erro.response.data;
       }
@@ -74,6 +75,11 @@ const Home = () => {
           sx={{ display: "flex", marginX: 4, marginY: 2 }}
           spacing={3}
         >
+          <Grid item xs={12} display={"flex"} justifyContent={"center"}>
+            <Typography variant="h4" fontWeight={"bold"} color={"#ffff"}>
+              Principais Personagens
+            </Typography>
+          </Grid>
           {characters.map((character) => (
             <Grid
               item
@@ -99,41 +105,47 @@ const Home = () => {
           marginBottom={2}
           alignItems={"center"}
         >
-          <IconButton
-            sx={{
-              bgcolor: "#F5D547",
-              borderRadius: "100%",
-              height: "100px",
-              width: "100px",
-              transition: "0.3s",
+          {prevPage !== null && (
+            <IconButton
+              sx={{
+                bgcolor: "#F5D547",
+                borderRadius: "100%",
+                height: "100px",
+                width: "100px",
+                transition: "0.3s",
 
-              "&:hover": {
-                bgcolor: "#DB3069",
-              },
-            }}
-            onClick={() => setPage(prevPage)}
-          >
-            <ArrowBackIosNewRoundedIcon />
-          </IconButton>
+                "&:hover": {
+                  bgcolor: "#DB3069",
+                },
+              }}
+              onClick={() => setPage(prevPage)}
+            >
+              <ArrowBackIosNewRoundedIcon />
+            </IconButton>
+          )}
+
           <Typography variant="h5" fontWeight={"bold"} color={"#ffff"}>
             {countPage} / {totalPage}
           </Typography>
-          <IconButton
-            sx={{
-              bgcolor: "#F5D547",
-              borderRadius: "100%",
-              height: "100px",
-              width: "100px",
-              transition: "0.2s",
 
-              "&:hover": {
-                bgcolor: "#DB3069",
-              },
-            }}
-            onClick={() => setPage(nextPage)}
-          >
-            <ArrowForwardIosRoundedIcon />
-          </IconButton>
+          {nextPage !== null && (
+            <IconButton
+              sx={{
+                bgcolor: "#F5D547",
+                borderRadius: "100%",
+                height: "100px",
+                width: "100px",
+                transition: "0.2s",
+
+                "&:hover": {
+                  bgcolor: "#DB3069",
+                },
+              }}
+              onClick={() => setPage(nextPage)}
+            >
+              <ArrowForwardIosRoundedIcon />
+            </IconButton>
+          )}
         </Grid>
       </Grid>
     </>

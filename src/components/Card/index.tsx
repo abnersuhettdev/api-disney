@@ -4,19 +4,25 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import { useNavigate } from "react-router-dom";
+import { ICharacter } from "../../types/character";
+
 
 interface CardProps {
-  character: Character;
+  character: ICharacter;
 }
 
 export const MediaCard: React.FC<CardProps> = ({ character }) => {
+  const navigate = useNavigate()
+
   return (
     <Card
       sx={{
-        width: 270,
+        width: 300,
         borderRadius: "12px",
-        bgcolor: "#f1f1f1",
-        boxShadow: "-7px 4px 45px -8px #ffffff83;",
+        bgcolor: "#dadada",
+        boxShadow: "-7px 4px 45px -8px #3376f3;",
+        transition: "0.3s",
       }}
     >
       <CardMedia
@@ -24,7 +30,7 @@ export const MediaCard: React.FC<CardProps> = ({ character }) => {
         image={character.imageUrl}
         title={character.name}
       />
-      <CardContent>
+      <CardContent sx={{ paddingBottom: 0 }}>
         <Typography
           gutterBottom
           variant="h6"
@@ -39,8 +45,10 @@ export const MediaCard: React.FC<CardProps> = ({ character }) => {
           sx={{
             alignSelf: "center",
           }}
-					variant="contained"
+          variant="contained"
           size="small"
+          fullWidth
+          onClick={() => navigate('/character/' + character._id)}
         >
           Visualizar
         </Button>
